@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.js"></script>
+    <style>
+      #chart {
+        width: 800px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      const data = [
+        [
+          [10, 77, 17096869, "Australia", 1990],
+          // [20, 77.4, 27662440, "Canada", 1990],
+          [30, 68, 1154605773, "China", 1990],
+          // [40, 74.7, 10582082, "Cuba", 1990],
+          [50, 75, 4986705, "Finland", 1990],
+          [60, 77.1, 56943299, "France", 1990],
+        ],
+        [
+          [10, 77, 17096869, "Australia", 1990],
+          [20, 77.4, 27662440, "Canada", 1990],
+          [30, 68, 1154605773, "China", 1990],
+          [40, 74.7, 10582082, "Cuba", 1990],
+          [50, 75, 4986705, "Finland", 1990],
+          [60, 77.1, 56943299, "France", 1990],
+          [70, 74.1, 56943299, "France", 1990],
+          [80, 46.1, 56943299, "France", 1990],
+        ]
+      ];
+      const chartDom = document.getElementById("chart");
+      const chart = echarts.init(chartDom);
+
+      const option = {
+        xAxis: {
+          type: "category",
+          // splitLine: { show: false }
+        },
+        yAxis: {
+          splitLine: { show: false },
+          scale: true,
+        },
+        grid: {
+          left: 40,
+          right: 130,
+        },
+        tooltip: {
+          show: true,
+          trigger: 'axis',
+          formatter: function (param) {
+            console.log(222)
+            return 'test'
+          },
+        },
+        series: [
+          {
+            data: data[1],
+            type: 'line',
+            smooth: true
+          },
+          {
+            name: "1990",
+            data: data[0],
+            type: "scatter",
+            // symbolSize: function (data) {
+            //   return Math.sqrt(data[2]) / 5e2;
+            // },
+            emphasis: {
+              focus: "self",
+            },
+            labelLayout: function () {
+              return {
+                y: 40,
+                moveOverlap: "shiftX",
+              };
+            },
+            labelLine: {
+              show: true,
+              length2: 5,
+              lineStyle: {
+                color: "#bbb",
+              },
+            },
+            label: {
+              show: true,
+              backgroundColor: 'red',
+              padding: 20,
+              formatter: function (param) {
+                return param.data[3];
+              },
+              position: "right",
+              minMargin: 2,
+            },
+            silent: true,
+          },
+        ],
+      };
+      chart.setOption(option);
+    </script>
+  </body>
+</html>
